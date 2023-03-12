@@ -1,2 +1,7 @@
 .idea/
 /starter_code/target/
+.project
+/starter_code/.settings/
+/starter_code/.classpath
+*.csv
+*.tmp

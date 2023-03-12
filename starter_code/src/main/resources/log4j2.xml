@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="csvLog.fileName">csvLog</Property>
+        <Property name="file-header">message,time,level,class,status</Property>
+        <Property name="LOG_DIR">logs</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="csvFile" 
+                     fileName="${LOG_DIR}/${csvLog.fileName}.tmp"
+                     filePattern="${csvLog.filename}-%d{MM-dd-yyyy}-%i.csv" >
+            <CsvParameterLayout delimiter="," header="${file-header}\n"/>
+            <!--<RegexFilter regex="\d{4}-\d{2}-\d{2}T.*" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="200" />
+        </RollingFile>
+        
+        <RollingFile
+	      name="rollingFile"
+	      fileName="${LOG_DIR}/application.log"
+	      filePattern="${LOG_DIR}/application.%i.log.gz"
+	      ignoreExceptions="false">
+	      <PatternLayout>
+	          <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+	      </PatternLayout>
+	      <Policies>
+	          <SizeBasedTriggeringPolicy size="10MB" />
+	      </Policies>
+	      <DefaultRolloverStrategy max="5">
+	        <Delete basePath="${LOG_DIR}" maxDepth="2">
+	          <IfFileName glob="*/app-*.log.gz" />
+	          <IfLastModified age="P30D" />
+	        </Delete>
+	      </DefaultRolloverStrategy>
+	    </RollingFile>
+    
+    
+    </Appenders>
+    <Loggers>
+        <Root level="debug" additivity="false">
+            <AppenderRef ref="csvFile" level="error"/>
+            <!--<AppenderRef ref="rollingFile"/>-->
+        </Root>
+    </Loggers>
+</Configuration>
