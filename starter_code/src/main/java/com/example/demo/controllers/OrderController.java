@@ -37,7 +37,7 @@ public class OrderController {
 		User user = userRepository.findByUsername(username);
 		String isoTime = Utils.getIsotimeNow();
 		if(user == null) {
-			String logMessage = String.format("Cannot create new UserOrder for  unknown user %s", user.getUsername());
+			String logMessage = String.format("Cannot create new UserOrder for  unknown user %s", username);
 			logger.error(logMessage, logMessage, isoTime, "WARN", "OrderController", "404");
 			return ResponseEntity.notFound().build();
 		}
