@@ -38,13 +38,13 @@ public class OrderController {
 		String isoTime = Utils.getIsotimeNow();
 		if(user == null) {
 			String logMessage = String.format("Cannot create new UserOrder for  unknown user %s", user.getUsername());
-			logger.warn(logMessage, isoTime, "WARN", "OrderController", logMessage);
+			logger.error(logMessage, logMessage, isoTime, "WARN", "OrderController", "404");
 			return ResponseEntity.notFound().build();
 		}
 		UserOrder order = UserOrder.createFromCart(user.getCart());
 		orderRepository.save(order);
 		String logMessage = String.format("Created new UserOrder for user %s with ID %d", user.getUsername(), order.getId());
-		logger.info(logMessage, isoTime, "INFO", "OrderController", logMessage);
+		logger.error(logMessage, logMessage, isoTime, "INFO", "OrderController", "200");
 		return ResponseEntity.ok(order);
 	}
 	

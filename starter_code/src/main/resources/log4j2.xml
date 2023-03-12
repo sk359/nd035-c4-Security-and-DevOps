@@ -2,7 +2,7 @@
 <Configuration status="WARN">
     <Properties>
         <Property name="csvLog.fileName">csvLog</Property>
-        <Property name="file-header">time,level,class,message</Property>
+        <Property name="file-header">message,time,level,class,status</Property>
         <Property name="LOG_DIR">logs</Property>
     </Properties>
     <Appenders>
@@ -10,6 +10,7 @@
                      fileName="${LOG_DIR}/${csvLog.fileName}.tmp"
                      filePattern="${csvLog.filename}-%d{MM-dd-yyyy}-%i.csv" >
             <CsvParameterLayout delimiter="," header="${file-header}\n"/>
+            <!--<RegexFilter regex="\d{4}-\d{2}-\d{2}T.*" onMatch="ACCEPT" onMismatch="DENY"/>-->
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
                 <SizeBasedTriggeringPolicy size="10 MB" />
@@ -40,7 +41,7 @@
     </Appenders>
     <Loggers>
         <Root level="debug" additivity="false">
-            <AppenderRef ref="csvFile" level="warn"/>
+            <AppenderRef ref="csvFile" level="error"/>
             <!--<AppenderRef ref="rollingFile"/>-->
         </Root>
     </Loggers>

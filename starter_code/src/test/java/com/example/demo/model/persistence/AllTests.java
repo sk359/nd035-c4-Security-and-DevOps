@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.springframework.test.context.junit4.SpringRunner;
 

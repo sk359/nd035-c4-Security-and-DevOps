@@ -62,7 +62,7 @@ public class UserController {
 			//		createUserRequest.getUsername());
 			String logMessage = String.format("Password for User %s not accepted", user.getUsername());
 			String isoTime = Utils.getIsotimeNow();
-			logger.error(logMessage, isoTime, "ERROR", "UserController", logMessage);
+			logger.error(logMessage, logMessage, isoTime, "ERROR", "UserController", "403");
 			return ResponseEntity.badRequest().build();
 		}
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
@@ -71,12 +71,13 @@ public class UserController {
 		try {
 		  userRepository.save(user);
 		  logMessage = String.format("Created new User %s with ID %d", user.getUsername(), user.getId());
-		  logger.info(logMessage, isoTime, "INFO", "UserController", logMessage);
+		  // use error to match the log level of the csv file
+		  logger.error(logMessage, logMessage, isoTime, "INFO", "UserController", "200");
 		  return ResponseEntity.ok(user);
 		} catch (Exception e) {
 			logMessage = String.format("Can not create new User %s: %s ", user.getUsername(), e);
-			logger.error(logMessage, isoTime, "ERROR", "UserController", logMessage);
-			throw e;
+			logger.error(logMessage, logMessage, isoTime, "ERROR", "UserController", "500");
+			return ResponseEntity.of(null);
 		}		
 		
 	}

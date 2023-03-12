@@ -11,7 +11,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.model.persistence.User;
@@ -19,7 +18,6 @@ import com.example.demo.model.persistence.repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@ContextConfiguration
 public class UserDetailsServiceTest {
 	
 	@MockBean
